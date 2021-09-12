@@ -13,7 +13,14 @@ students = [
     {'first_name': 'Петя'},
 ]
 # ???
-
+num_of_replays = {}
+for i in range(len(students)):
+    if students[i]['first_name'] not in num_of_replays:
+        num_of_replays[students[i]['first_name']] = 1
+    else:
+        num_of_replays[students[i]['first_name']] += 1
+for key,value in num_of_replays.items():
+    print(key,':',value)  
 
 # Задание 2
 # Дан список учеников, нужно вывести самое часто повторящееся имя
@@ -27,6 +34,15 @@ students = [
     {'first_name': 'Оля'},
 ]
 # ???
+num_of_replays = {}
+for i in range(len(students)):
+    if students[i]['first_name'] not in num_of_replays:
+        num_of_replays[students[i]['first_name']] = 1
+    else:
+        num_of_replays[students[i]['first_name']] += 1
+
+ans = max(num_of_replays, key=num_of_replays.get)
+print(f'Самое частое имя среди учеников: {ans}')
 
 
 # Задание 3
@@ -52,6 +68,15 @@ school_students = [
     ],
 ]
 # ???
+num_of_replays = {}
+for i in range(len(school_students)):
+    for student in school_students[i]:
+        if student['first_name'] not in num_of_replays:
+            num_of_replays[student['first_name']] = 1
+        else:
+            num_of_replays[student['first_name']] += 1
+    print(f'Самое частое имя в классе {i+1}: {max(num_of_replays, key=num_of_replays.get)}')
+    num_of_replays ={}
 
 
 # Задание 4
@@ -63,7 +88,7 @@ school_students = [
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
     {'class': '2б', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
-    {'class': '2б', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
+    {'class': '2в', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
 ]
 is_male = {
     'Олег': True,
@@ -73,6 +98,16 @@ is_male = {
     'Даша': False,
 }
 # ???
+for cl in school:
+    male = 0
+    female = 0
+    for student in cl['students']:
+        if is_male[student['first_name']] == True:
+            male += 1
+        elif is_male[student['first_name']] == False:
+            female += 1 
+    print(f"Класс {cl['class']}: девочки {female}, мальчики {male}")
+
 
 
 # Задание 5
@@ -92,4 +127,31 @@ is_male = {
     'Миша': True,
 }
 # ???
-
+new_school = []
+for cl in school:
+    male = 0
+    female = 0
+    for student in cl['students']:
+        if is_male[student['first_name']] == True:
+            male += 1
+        elif is_male[student['first_name']] == False:
+            female += 1 
+    new_class = {}
+    new_class['class'] = cl['class']
+    new_class['male'] = male
+    new_class['female'] = female
+    new_school.append(new_class)
+    
+male_max_class =''
+female_max_class =''
+male = 0
+female = 0
+for cl in new_school:
+    if cl['male'] >= male:
+        male = cl['male']
+        male_max_class = cl['class']
+    if cl['female'] >= female:
+        female = cl['female']
+        female_max_class = cl['class']
+print(f'Больше всего мальчиков в классе {male_max_class}')
+print(f'Больше всего девочек в классе {female_max_class}')
